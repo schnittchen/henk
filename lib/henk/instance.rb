@@ -1,5 +1,6 @@
 require 'henk/commands'
 require 'henk/step'
+require 'henk/sequence'
 
 module Henk
   class Instance
@@ -30,13 +31,13 @@ module Henk
     def sequence(&block)
       seq = Sequence.new(self)
       if block.arity.zero?
-        yield seq
-      else
         seq.instance_eval(&block)
+      else
+        yield seq
       end
     end
 
-    def execute(*args)
+    def execute(*arguments)
       @before_subshell_block.call(Sheller.command(*arguments)) if @before_subshell_block
 
       result = Sheller.execute(*arguments)
@@ -53,8 +54,8 @@ module Henk
       result
     end
 
-    def execute_for_word(*args)
-      sheller_result = execute(*args)
+    def execute_for_word(*arguments)
+      sheller_result = execute(*arguments)
       sheller_result.stdout.chomp if sheller_result.exit_status.success?
     end
   end

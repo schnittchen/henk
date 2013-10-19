@@ -18,12 +18,12 @@ module Henk
     end
 
     def perform!
-      container = @henk.execute_for_word(@arguments)
+      container = @henk.execute_for_word(*@arguments)
       return unless container
 
       container_exit = @henk.wait(container)
 
-      @after_wait_block.call(container, container_exit)
+      @after_wait_block.call(container, container_exit) if @after_wait_block
 
       unless container_exit.zero?
         block = @bad_exit_block || Proc.new do

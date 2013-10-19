@@ -10,7 +10,7 @@ module Henk
     end
 
     def wait(container)
-      result = execute_for_word('docker', 'wait', 'container')
+      result = execute_for_word('docker', 'wait', container)
       result &&= Integer(result)
     end
 
@@ -19,7 +19,7 @@ module Henk
     end
 
     def logs(container)
-      execute('docker', 'logs', conteiner)
+      execute('docker', 'logs', container)
     end
   end
 end

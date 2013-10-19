@@ -20,8 +20,8 @@ module Henk
 
     def step(*args)
       result = Step.new(@henk, *args)
-      result.after_wait(@after_wait_block) if @after_wait_block
-      result.on_bad_exit(@bad_exit_block) if @bad_exit_block
+      result.after_wait(&@after_wait_block) if @after_wait_block
+      result.on_bad_exit(&@bad_exit_block) if @bad_exit_block
       result.perform!
       @image = result.image
       result
