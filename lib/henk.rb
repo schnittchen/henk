@@ -1,5 +1,9 @@
 require "henk/version"
 
+require "henk/instance"
+
 module Henk
-  # Your code goes here...
+  def self.new
+    Instance.new
+  end
 end
