@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Henk::VERSION
   gem.authors       = ["Thomas Stratmann"]
   gem.email         = ["thomas.stratmann@9elements.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Henk is a ruby wrapper around the docker CLI}
+  gem.summary       = %q{a ruby wrapper around the docker CLI}
   gem.homepage      = ""
 
   gem.add_dependency 'sheller'
