@@ -15,7 +15,7 @@ module Henk
       @before_subshell_block = block
     end
 
-    # Block is passed what?
+    # Block is passed sheller result. Called regardless of error status
     def after_subshell(&block)
       @after_subshell_block = block
     end
@@ -48,7 +48,7 @@ module Henk
         block.call(result.exit_status)
       end
 
-      @after_subshell_block.call if @after_subshell_block
+      @after_subshell_block.call(result) if @after_subshell_block
 
       result
     end
