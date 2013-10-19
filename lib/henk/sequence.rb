@@ -2,6 +2,8 @@ require 'henk/step'
 
 module Henk
   class Sequence
+    attr_reader :image
+
     def initialize(henk)
       @henk = henk
     end
@@ -21,6 +23,7 @@ module Henk
       result.after_wait(@after_wait_block) if @after_wait_block
       result.on_bad_exit(@bad_exit_block) if @bad_exit_block
       result.perform!
+      @image = result.image
       result
     end
   end
