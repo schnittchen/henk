@@ -21,5 +21,12 @@ module Henk
     def logs(container)
       execute('docker', 'logs', container)
     end
+
+    def tag(image, repository, tag = nil, options = {})
+      command_options = []
+      command_options << '-f' if options[:force]
+
+      execute 'docker', 'tag', *command_options, image, repository, *tag
+    end
   end
 end
