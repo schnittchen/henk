@@ -5,7 +5,23 @@ module Henk
     end
 
     def resolve_image_name(name)
+      return resolve_untagged_image_name(name) unless name.include?(':')
+
+      # this is a kludge.
+      lines = execute_for_lines('docker', 'images')
+      lines = lines.map { |line| line.split(/ +/) }
+
+      raise "'docker images' output not as expected" unless
+        lines.first.length == 5 &&
+        lines.first[0..1] == %w(REPOSITORY TAG)
+
+      line = lines.find { |l| l[0..1].join(':') == name}
+      line && line[2]
+    end
+
+    def resolve_untagged_image_name(name)
       result = execute_for_word('docker', 'images', '-q', name)
+      raise "image name #{name} is ambiguous" if result.include?("\n")
       result unless result.empty?
     end
 

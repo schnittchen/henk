@@ -58,5 +58,10 @@ module Henk
       sheller_result = execute(*arguments)
       sheller_result.stdout.chomp if sheller_result.exit_status.success?
     end
+
+    def execute_for_lines(*arguments)
+      sheller_result = execute(*arguments)
+      sheller_result.stdout.chomp.split("\n") if sheller_result.exit_status.success?
+    end
   end
 end
