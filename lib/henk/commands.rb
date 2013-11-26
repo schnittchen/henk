@@ -44,5 +44,9 @@ module Henk
 
       execute 'docker', 'tag', *command_options, image, repository, *tag
     end
+
+    def kill(container)
+      execute('docker', 'kill', container)
+    end
   end
 end
