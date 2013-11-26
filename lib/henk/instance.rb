@@ -6,6 +6,14 @@ module Henk
   class Instance
     include Commands
 
+    def initialize
+      @running_containers = []
+    end
+
+    def running_containers
+      @running_containers.to_enum
+    end
+
     # Block is passed exit status object
     def on_subshell_error(&block)
       @subshell_error_block = block
@@ -62,6 +70,15 @@ module Henk
     def execute_for_lines(*arguments)
       sheller_result = execute(*arguments)
       sheller_result.stdout.chomp.split("\n") if sheller_result.exit_status.success?
+    end
+
+    private
+
+    def while_container_running(container)
+      @running_containers << container
+      yield
+    ensure
+      @running_containers.delete(container)
     end
   end
 end

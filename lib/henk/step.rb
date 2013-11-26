@@ -21,7 +21,9 @@ module Henk
       container = @henk.execute_for_word(*@arguments)
       return unless container
 
-      container_exit = @henk.wait(container)
+      container_exit = @henk.send(:while_container_running, container) do
+        @henk.wait(container)
+      end
 
       @after_wait_block.call(container, container_exit) if @after_wait_block
 
