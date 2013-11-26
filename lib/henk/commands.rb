@@ -12,7 +12,6 @@ module Henk
       lines = lines.map { |line| line.split(/ +/) }
 
       raise "'docker images' output not as expected" unless
-        lines.first.length == 5 &&
         lines.first[0..1] == %w(REPOSITORY TAG)
 
       line = lines.find { |l| l[0..1].join(':') == name}
